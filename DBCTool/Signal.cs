@@ -15,7 +15,7 @@ namespace DBCTool
         public ushort StartBit { get; set; }
         public ushort Length { get; set; }
         public byte ByteOrder { get; set; }
-        public byte IsSigned { get; set; }
+        public DbcValueType ValueType { get; set; }
         public double InitialValue { get; set; }
         public double Factor { get; set; }
         public double Offset { get; set; }

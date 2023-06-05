@@ -19,8 +19,8 @@ namespace DBCTool
     {
         #region Property
         public string Title { get; set; }
-        public string DBCPath { get; set; }
-        public string NodeName { get; set; }
+        public string? DBCPath { get; set; }
+        public string? NodeName { get; set; }
 
         public ObservableCollection<Message> Messages { get; set; } = new();
         public ObservableCollection<Signal> Signals { get; set; } = new();
@@ -62,7 +62,6 @@ namespace DBCTool
             }
             catch (Exception ex)
             {
-                
                 return;
             }
         }
@@ -103,7 +102,7 @@ namespace DBCTool
                         StartBit=sig.StartBit,
                         Length=sig.Length,
                         ByteOrder=sig.ByteOrder,
-                        IsSigned=sig.IsSigned,
+                        ValueType = DbcValueType.Signed,
                         InitialValue=sig.InitialValue,
                         Factor=sig.Factor,
                         Offset=sig.Offset,
