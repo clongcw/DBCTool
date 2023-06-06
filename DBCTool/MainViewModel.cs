@@ -1,16 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿#region
+
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DbcParserLib;
 using DbcParserLib.Model;
 using Microsoft.Win32;
 using PropertyChanged;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+
+#endregion
 
 namespace DBCTool
 {
@@ -18,22 +18,27 @@ namespace DBCTool
     public partial class MainViewModel : ObservableObject
     {
         #region Property
+
         public string Title { get; set; }
         public string? DBCPath { get; set; }
         public string? NodeName { get; set; }
 
         public ObservableCollection<Message> Messages { get; set; } = new();
         public ObservableCollection<Signal> Signals { get; set; } = new();
+
         #endregion
 
         #region Constructor
+
         public MainViewModel()
         {
             Title = "DBC解析器";
         }
+
         #endregion
 
         #region Commands
+
         [RelayCommand]
         public void LoadDBC()
         {
@@ -49,9 +54,22 @@ namespace DBCTool
                 LoadDbc(openFileDialog.FileName);
             }
         }
+
+        [RelayCommand]
+        public void SaveDBC()
+        {
+            IEnumerable<Node> Nodes = new ObservableCollection<Node>();
+            IEnumerable<Message> Messages2 = new ObservableCollection<Message>();
+
+            IEnumerable<EnvironmentVariable> EnvironmentVariables = new ObservableCollection<EnvironmentVariable>();
+
+            //Dbc dbc=new Dbc(Nodes,Messages2,EnvironmentVariables);
+        }
+
         #endregion
 
         #region Methods
+
         public void LoadDbc(string filePath)
         {
             try
@@ -81,12 +99,12 @@ namespace DBCTool
             {
                 Messages.Add(new Message()
                 {
-                    ID=$"0x{msg.ID.ToString("X")}" ,
+                    ID = $"0x{msg.ID.ToString("X")}",
                     Name = msg.Name,
-                    DLC= msg.DLC,
-                    Transmitter= msg.Transmitter,
-                    CycleTime= msg.CycleTime,
-                }); 
+                    DLC = msg.DLC,
+                    Transmitter = msg.Transmitter,
+                    CycleTime = msg.CycleTime,
+                });
             }
 
             // Signals
@@ -97,26 +115,25 @@ namespace DBCTool
                 {
                     Signals.Add(new Signal()
                     {
-                        ID= "0x" + sig.ID.ToString("X"),
-                        Name= sig.Name,
-                        StartBit=sig.StartBit,
-                        Length=sig.Length,
-                        ByteOrder=sig.ByteOrder,
+                        ID = "0x" + sig.ID.ToString("X"),
+                        Name = sig.Name,
+                        StartBit = sig.StartBit,
+                        Length = sig.Length,
+                        ByteOrder = sig.ByteOrder,
                         ValueType = DbcValueType.Signed,
-                        InitialValue=sig.InitialValue,
-                        Factor=sig.Factor,
-                        Offset=sig.Offset,
-                        Minimum=sig.Minimum,
-                        Maximum=sig.Maximum,
-                        Unit=sig.Unit,
-                        ValueTable=sig.ValueTable,
-                        Comment=sig.Comment
+                        InitialValue = sig.InitialValue,
+                        Factor = sig.Factor,
+                        Offset = sig.Offset,
+                        Minimum = sig.Minimum,
+                        Maximum = sig.Maximum,
+                        Unit = sig.Unit,
+                        ValueTable = sig.ValueTable,
+                        Comment = sig.Comment
                     });
                 }
             }
         }
+
         #endregion
-
-
     }
 }

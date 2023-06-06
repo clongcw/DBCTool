@@ -1,10 +1,10 @@
-﻿using DbcParserLib.Model;
-using PropertyChanged;
-using System;
+﻿#region
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DbcParserLib.Model;
+using PropertyChanged;
+
+#endregion
 
 namespace DBCTool
 {
@@ -21,7 +21,5 @@ namespace DBCTool
 
         public List<Signal> Signals = new List<Signal>();
         public IDictionary<string, CustomProperty> CustomProperties = new Dictionary<string, CustomProperty>();
-
-        
     }
 }
